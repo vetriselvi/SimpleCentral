@@ -104,16 +104,17 @@
     NSLog(@"CM Discovered name:%@ id:%@ rssi:%@", peripheral.name, [peripheral.identifier UUIDString] , RSSI);
     
     //Reject any where the value is above reasonable range
-    if (RSSI.integerValue > -15) return;
+    //if (RSSI.integerValue > -15) return;
     
     // Attempt connection
     [self addPeripheral:peripheral]; // NOTE: We need to retain the peripheral!!!!
     [_centralManager connectPeripheral:peripheral options:nil];
+    //[_delegate didDiscoverPeripheral:peripheral rssi:RSSI]
     
     // NOTE: Delagates to UI fire in main thread
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [_delegate didDiscoverPeripheral:peripheral rssi:RSSI];
-    });
+//    dispatch_sync(dispatch_get_main_queue(), ^{
+//        [_delegate didDiscoverPeripheral:peripheral rssi:RSSI];
+//    });
 }
 
 /** If the connection fails for whatever reason, we need to deal with it. */
